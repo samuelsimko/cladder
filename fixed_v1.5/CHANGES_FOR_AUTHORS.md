@@ -133,12 +133,29 @@ gives the id of the first copy, and `n_identical_prompts` gives the number of co
 
 ---
 
+
+## 7. A clean benchmark with no ill-posed items
+
+Section 3 flags the rows whose answer cannot be derived from the printed numbers, and section 4 flags the rows
+whose answer flips under rounding. For a benchmark you can score a model on directly, we also provide a clean
+subset, `full_v1.5_default_clean.csv` (and one per test file), that removes every such row:
+
+- **not identifiable from the prompt** (158 confounding-ETT, 158 IV-ATE): the yes/no answer is not determined
+  by the numbers in the prompt.
+- **rounding-ambiguous** (481 rows): the answer changes within +-0.5 percentage points of the printed integers.
+- **ill-posed** (the 316 arrowhead NDE/NIE rows, already in the excluded file).
+
+This leaves **9,021** rows in the default set (from 9,796), balanced 4,538 yes / 4,483 no, every one with a
+yes/no answer computable from its prompt and stable under rounding. Per-file counts are in
+`checks/clean_manifest.json`. Backadj rows (no numbers) are always kept.
+
 ## Files
 
 | file | rows | what it is |
 |---|---|---|
 | `full_v1.5_default_fixed.csv` | 9,796 | the default file with all fixes, minus the 316 ill-posed rows |
 | `full_v1.5_default_excluded_ill_posed.csv` | 316 | the arrowhead NDE/NIE rows (section 3a) |
+| `full_v1.5_default_clean.csv` + `test-*-v1.5_clean.csv` | 9,021 | **clean benchmark**: fixed rows with *all* ill-posed items removed (section 7) |
 | `full_v1.5_default_variant_1decimal.csv` | 6,952 | numeric rows with one-decimal percentages (section 4) |
 | `full_v1.5_default_variant_confounding_ett_with_PXgivenV1.csv` | 158 | confounding ETT with the missing number added (section 3b) |
 | `test-*-v1.5_fixed.csv`, `test-*-v1.5_excluded_ill_posed.csv` | | the six test files, same fixes |

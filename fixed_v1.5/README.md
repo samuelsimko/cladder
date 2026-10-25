@@ -12,6 +12,7 @@ Rebuild: put the original inputs in `inputs/` (`inputs/hf/data/*.csv` from the H
 | `full_v1.5_default_variant_confounding_ett_with_PXgivenV1.csv` | the 158 confounding-ETT rows with P(X\|V1) printed (fix 3) |
 | `full_v1.5_default_variant_1decimal.csv` | the 6952 numeric rows (including the 316 ill-posed arrowhead NDE/NIE rows, flagged `ill_posed`) with every percentage printed to one decimal and derivations to 3 decimals (fix 4) |
 | `test-*-v1.5_fixed.csv`, `test-*-v1.5_excluded_ill_posed.csv` | all 6 test files, run through the same pipeline using each file's own JSON |
+| `full_v1.5_default_clean.csv`, `test-*-v1.5_clean.csv` | the **clean benchmark**: the fixed rows minus every ill-posed one (not identifiable from the prompt, rounding-ambiguous, or arrowhead NDE/NIE). 9,021 rows in default; `checks/clean_manifest.json` has per-file counts. Build: `python src/make_clean.py` |
 | `CHANGELOG.csv` | one line per (file, id, fix, field) with the old and new value |
 | `src/exact_ours.py` | our enumeration engine (from `verify/exact.py`) |
 

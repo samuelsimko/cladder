@@ -145,6 +145,12 @@ subset, `full_v1.5_default_clean.csv` (and one per test file), that removes ever
 - **rounding-ambiguous** (481 rows): the answer changes within +-0.5 percentage points of the printed integers.
 - **ill-posed** (the 316 arrowhead NDE/NIE rows, already in the excluded file).
 
+
+**Fixing instead of dropping.** Two of the three ill-posed classes can be repaired by re-rendering the prompt rather than removing the row, which `full_v1.5_default_repaired.csv` does (9,582 rows, +561 over the clean set):
+- *rounding-ambiguous*: printing every percentage to one decimal makes the answer stable for 403 of the 481 rows (`full_v1.5_default_variant_1decimal.csv`); 78 still flip and are dropped.
+- *confounding-ETT*: adding the one missing line, P(X|V1), makes all 158 identifiable (`full_v1.5_default_variant_confounding_ett_with_PXgivenV1.csv`).
+- *IV-ATE* (158) and the arrowhead NDE/NIE cannot be fixed by a prompt edit: the Wald ratio the prompt identifies is the LATE, not the ATE the label uses, and the arrowhead estimand needs redefining. These stay out of both the clean and repaired sets.
+
 This leaves **9,021** rows in the default set (from 9,796), balanced 4,538 yes / 4,483 no, every one with a
 yes/no answer computable from its prompt and stable under rounding. Per-file counts are in
 `checks/clean_manifest.json`. Backadj rows (no numbers) are always kept.
@@ -156,6 +162,7 @@ yes/no answer computable from its prompt and stable under rounding. Per-file cou
 | `full_v1.5_default_fixed.csv` | 9,796 | the default file with all fixes, minus the 316 ill-posed rows |
 | `full_v1.5_default_excluded_ill_posed.csv` | 316 | the arrowhead NDE/NIE rows (section 3a) |
 | `full_v1.5_default_clean.csv` + `test-*-v1.5_clean.csv` | 9,021 | **clean benchmark**: fixed rows with *all* ill-posed items removed (section 7) |
+| `full_v1.5_default_repaired.csv` | 9,582 | **repaired benchmark**: ill-posed rows *fixed* not dropped where a prompt edit can (section 7) |
 | `full_v1.5_default_variant_1decimal.csv` | 6,952 | numeric rows with one-decimal percentages (section 4) |
 | `full_v1.5_default_variant_confounding_ett_with_PXgivenV1.csv` | 158 | confounding ETT with the missing number added (section 3b) |
 | `test-*-v1.5_fixed.csv`, `test-*-v1.5_excluded_ill_posed.csv` | | the six test files, same fixes |

@@ -1,0 +1,1329 @@
+id,label,reasoning,rung,query_type,graph_id,story_id,question_property,formal_form,ref,rule,cause
+548,no,"Let X = season; V3 = sprinkler; V2 = weather; Y = ground.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.48
+P(Y=1, X=0=1) = 0.26
+P(Y=1, X=1=1) = 0.23
+0.23/0.48 - 0.26/0.52 = -0.00
+0.00 = 0",1,correlation,diamond,floor_wet,easy,P(Y | X),yes,joint,rounding
+1026,no,"Let X = my decision; V2 = penguin mood; Y = penguin survival.
+X->V2,X->Y,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.79
+P(Y=1, X=0=1) = 0.11
+P(Y=1, X=1=1) = 0.42
+0.42/0.79 - 0.11/0.21 = 0.00
+0.00 = 0",1,correlation,mediation,penguin,easy,P(Y | X),yes,joint,rounding
+1121,yes,"Let X = my decision; V2 = penguin mood; Y = penguin survival.
+X->V2,X->Y,V2->Y
+E[Y | do(X = 1)] - E[Y | do(X = 0)]
+P(Y=1|X=1) - P(Y=1|X=0)
+P(Y=1 | X=0) = 0.67
+P(Y=1 | X=1) = 0.67
+0.67 - 0.67 = 0.01
+0.01 > 0",2,ate,mediation,penguin,easy,E[Y | do(X = 1)] - E[Y | do(X = 0)],no,adjust0,rounding
+1266,yes,"Let X = vaccination status; V3 = vaccination reaction; V2 = getting smallpox; Y = smallpox survival.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.91
+P(Y=1, X=0=1) = 0.04
+P(Y=1, X=1=1) = 0.36
+0.36/0.91 - 0.04/0.09 = 0.01
+0.01 > 0",1,correlation,diamond,vaccine_kills,easy,P(Y | X),no,joint,rounding
+1319,no,"Let X = vaccination status; V3 = vaccination reaction; V2 = getting smallpox; Y = smallpox survival.
+X->V3,X->V2,V2->Y,V3->Y
+E[Y_{X=0, V2=1, V3=1} - Y_{X=0, V2=0, V3=0}]
+P(Y=1|X=1) - P(Y=1|X=0)
+P(Y=1 | X=0) = 0.42
+P(Y=1 | X=1) = 0.41
+0.41 - 0.42 = -0.00
+0.00 = 0",3,nie,diamond,vaccine_kills,easy,"E[Y_{X=0, V2=1, V3=1} - Y_{X=0, V2=0, V3=0}]",yes,paths+adjust0,rounding
+1377,no,"Let X = medication; V2 = blood pressure; Y = heart condition.
+X->V2,X->Y,V2->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.88
+P(Y=1 | X=0) = 0.59
+P(Y=1 | X=1) = 0.49
+0.88*0.49 - 0.12*0.59 = 0.49
+0.49 > 0",1,marginal,mediation,blood_pressure,easy,P(Y),yes,enumerate,marginal-formula
+1455,no,"Let X = medication; V2 = blood pressure; Y = heart condition.
+X->V2,X->Y,V2->Y
+E[Y_{X=1, V2=0} - Y_{X=0, V2=0}]
+\sum_{V2=v} P(V2=v|X=0)*[P(Y=1|X=1,V2=v) - P(Y=1|X=0, V2=v)]
+P(Y=1 | X=0, V2=0) = 0.61
+P(Y=1 | X=0, V2=1) = 0.41
+P(Y=1 | X=1, V2=0) = 0.84
+P(Y=1 | X=1, V2=1) = 0.24
+P(V2=1 | X=0) = 0.58
+P(V2=1 | X=1) = 0.26
+0.58 * (0.24 - 0.84) + 0.26 * (0.41 - 0.61) = 0.00
+0.00 = 0",3,nde,mediation,blood_pressure,easy,"E[Y_{X=1, V2=0} - Y_{X=0, V2=0}]",yes,mediation,rounding
+1475,no,"Let X = medication; V2 = blood pressure; Y = heart condition.
+X->V2,X->Y,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.99
+P(Y=1, X=0=1) = 0.01
+P(Y=1, X=1=1) = 0.55
+0.55/0.99 - 0.01/0.01 = 0.06
+0.06 > 0",1,correlation,mediation,blood_pressure,easy,P(Y | X),yes,joint,rounding
+1888,no,"Let V2 = proximity to a college; V1 = unobserved confounders; X = education level; Y = salary.
+V1->X,V2->X,V1->Y,X->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.58
+P(Y=1 | X=0) = 0.30
+P(Y=1 | X=1) = 0.64
+0.58*0.64 - 0.42*0.30 = 0.50
+0.50 > 0",1,marginal,IV,college_wage,easy,P(Y),yes,enumerate,marginal-formula
+1953,yes,"Let Y = effort; X = talent; V3 = elite institution admission status.
+X->V3,Y->V3
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.47
+P(Y=1 | X=0) = 0.50
+P(Y=1 | X=1) = 0.50
+0.47*0.50 - 0.53*0.50 = 0.50
+0.50 > 0",1,marginal,collision,elite_students,easy,P(Y),no,enumerate,marginal-formula
+2142,no,"Let X = encouragement level; V2 = studying habit; Y = exam score.
+X->V2,X->Y,V2->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.45
+P(Y=1 | X=0) = 0.21
+P(Y=1 | X=1) = 0.87
+0.45*0.87 - 0.55*0.21 = 0.50
+0.50 > 0",1,marginal,mediation,encouagement_program,easy,P(Y),yes,enumerate,marginal-formula
+2143,yes,"Let X = encouragement level; V2 = studying habit; Y = exam score.
+X->V2,X->Y,V2->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.45
+P(Y=1 | X=0) = 0.21
+P(Y=1 | X=1) = 0.87
+0.45*0.87 - 0.55*0.21 = 0.50
+0.50 > 0",1,marginal,mediation,encouagement_program,easy,P(Y),no,enumerate,marginal-formula
+2166,no,"Let X = gender; V2 = department competitiveness; Y = admission status.
+X->V2,X->Y,V2->Y
+E[Y_{X=1, V2=0} - Y_{X=0, V2=0}]
+\sum_{V2=v} P(V2=v|X=0)*[P(Y=1|X=1,V2=v) - P(Y=1|X=0, V2=v)]
+P(Y=1 | X=0, V2=0) = 0.42
+P(Y=1 | X=0, V2=1) = 0.52
+P(Y=1 | X=1, V2=0) = 0.40
+P(Y=1 | X=1, V2=1) = 0.59
+P(V2=1 | X=0) = 0.17
+P(V2=1 | X=1) = 0.79
+0.17 * (0.59 - 0.40) + 0.79 * (0.52 - 0.42) = -0.00
+0.00 = 0",3,nde,mediation,gender_admission,easy,"E[Y_{X=1, V2=0} - Y_{X=0, V2=0}]",yes,mediation,rounding
+2730,yes,"Let Y = appearance; X = personality; V3 = relationship status.
+X->V3,Y->V3
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.43
+P(Y=1 | X=0) = 0.50
+P(Y=1 | X=1) = 0.50
+0.43*0.50 - 0.57*0.50 = 0.50
+0.50 > 0",1,marginal,collision,man_in_relationship,easy,P(Y),no,enumerate,marginal-formula
+3809,no,"Let V1 = kidney stone size; X = treatment; Y = recovery.
+V1->X,V1->Y,X->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.46
+P(Y=1 | X=0) = 0.60
+P(Y=1 | X=1) = 0.39
+0.46*0.39 - 0.54*0.60 = 0.50
+0.50 > 0",1,marginal,confounding,simpson_kidneystone,easy,P(Y),yes,enumerate,marginal-formula
+4218,yes,"Let V1 = gender; X = smoking; V3 = tar deposit; Y = lung cancer.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.72
+P(Y=1 | X=0) = 0.40
+P(Y=1 | X=1) = 0.53
+0.72*0.53 - 0.28*0.40 = 0.50
+0.50 > 0",1,marginal,frontdoor,smoking_frontdoor,easy,P(Y),no,enumerate,marginal-formula
+4243,yes,"Let V1 = gender; X = smoking; V3 = tar deposit; Y = lung cancer.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.48
+P(Y=1 | X=0) = 0.50
+P(Y=1 | X=1) = 0.51
+0.48*0.51 - 0.52*0.50 = 0.50
+0.50 > 0",1,marginal,frontdoor,smoking_frontdoor,easy,P(Y),no,enumerate,marginal-formula
+5341,yes,"Let X = season; V3 = sprinkler; V2 = weather; Y = ground.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.93
+P(Y=1, X=0=1) = 0.05
+P(Y=1, X=1=1) = 0.64
+0.64/0.93 - 0.05/0.07 = 0.07
+0.07 > 0",1,correlation,diamond,floor_wet,hard,P(Y | X),no,joint,rounding
+5370,no,"Let X = season; V3 = sprinkler; V2 = weather; Y = ground.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.90
+P(Y=1, X=0=1) = 0.06
+P(Y=1, X=1=1) = 0.53
+0.53/0.90 - 0.06/0.10 = 0.01
+0.01 > 0",1,correlation,diamond,floor_wet,hard,P(Y | X),yes,joint,rounding
+5372,yes,"Let X = season; V3 = sprinkler; V2 = weather; Y = ground.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.96
+P(Y=1, X=0=1) = 0.01
+P(Y=1, X=1=1) = 0.38
+0.38/0.96 - 0.01/0.04 = -0.01
+-0.01 < 0",1,correlation,diamond,floor_wet,hard,P(Y | X),no,joint,rounding
+5957,no,"Let X = my decision; V2 = penguin mood; Y = penguin survival.
+X->V2,X->Y,V2->Y
+E[Y_{X=0, V2=1} - Y_{X=0, V2=0}]
+\sum_{V2 = v} P(Y=1|X =0,V2 = v)*[P(V2 = v | X = 1) − P(V2 = v | X = 0)]
+P(Y=1 | X=0, V2=0) = 0.90
+P(Y=1 | X=0, V2=1) = 0.91
+P(Y=1 | X=1, V2=0) = 0.48
+P(Y=1 | X=1, V2=1) = 0.54
+P(V2=1 | X=0) = 0.33
+P(V2=1 | X=1) = 0.75
+0.75 * (0.91 - 0.90)+ 0.33 * (0.54 - 0.48)= 0.00
+0.00 = 0",3,nie,mediation,penguin,hard,"E[Y_{X=0, V2=1} - Y_{X=0, V2=0}]",yes,mediation,rounding
+5993,yes,"Let X = vaccination status; V3 = vaccination reaction; V2 = getting smallpox; Y = smallpox survival.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.06
+P(Y=1, X=0=1) = 0.33
+P(Y=1, X=1=1) = 0.02
+0.02/0.06 - 0.33/0.94 = 0.05
+0.05 > 0",1,correlation,diamond,vaccine_kills,hard,P(Y | X),no,joint,rounding
+7390,yes,"Let V2 = skill; X = gender; V3 = occupation; Y = salary.
+X->V3,V2->V3,X->Y,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.02
+P(Y=1, X=0=1) = 0.45
+P(Y=1, X=1=1) = 0.01
+0.01/0.02 - 0.45/0.98 = -0.11
+-0.11 < 0",1,correlation,arrowhead,gender_pay,hard,P(Y | X),no,joint,rounding
+7519,yes,"Let Y = appearance; X = personality; V3 = relationship status.
+X->V3,Y->V3
+P(Y = 1 | X = 1, V3 = 1] - P(Y = 1 | V3 = 1)
+P(Y=1 | X=1, V3=1) - (P(X=1) * P(Y=1 | X=1, V3=1) + P(X=0) * P(Y=1 | X=0, V3=1))
+P(X=1) = 0.19
+P(Y=1 | X=0, V3=0) = 0.12
+P(Y=1 | X=0, V3=1) = 0.01
+P(Y=1 | X=1, V3=0) = 0.02
+P(Y=1 | X=1, V3=1) = 0.01
+0.01 - (0.19*0.01 + 0.81*0.01) = -0.00
+0.00 = 0",1,exp_away,collision,man_in_relationship,hard,"P(Y = 1 | X = 1, V3 = 1] - P(Y = 1 | V3 = 1)",no,convexity+kernel,rounding
+7605,no,"Let V2 = other unobserved factors; X = parents' intelligence; V3 = parents' social status; Y = child's intelligence.
+X->V3,V2->V3,X->Y,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.03
+P(Y=1, X=0=1) = 0.60
+P(Y=1, X=1=1) = 0.02
+0.02/0.03 - 0.60/0.97 = -0.14
+-0.14 < 0",1,correlation,arrowhead,nature_vs_nurture,hard,P(Y | X),yes,joint,rounding
+7892,no,"Let X = smoking; V2 = effort; Y = college admission.
+X->V2,X->Y,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.98
+P(Y=1, X=0=1) = 0.01
+P(Y=1, X=1=1) = 0.64
+0.64/0.98 - 0.01/0.02 = -0.27
+-0.27 < 0",1,correlation,mediation,neg_mediation,hard,P(Y | X),yes,joint,rounding
+9570,yes,"Let V1 = CEO; V3 = director; X = manager; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 1 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+1",3,det-counterfactual,diamondcut,firing_employee,commonsense,Y_{X=0} = 1 | V1=0,no,det,det-wiring
+9571,no,"Let V1 = CEO; V3 = director; X = manager; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+0",3,det-counterfactual,diamondcut,firing_employee,commonsense,Y_{X=0} = 0 | V1=0,yes,det,det-wiring
+9574,no,"Let V1 = CEO; V3 = director; X = manager; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 1 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X or V3
+Y = 0 = 0 or 0
+0",3,det-counterfactual,diamondcut,firing_employee,commonsense,Y_{X=0} = 1 | V1=1,yes,det,det-wiring
+9575,yes,"Let V1 = CEO; V3 = director; X = manager; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X or V3
+Y = 0 = 0 or 0
+1",3,det-counterfactual,diamondcut,firing_employee,commonsense,Y_{X=0} = 0 | V1=1,no,det,det-wiring
+9580,yes,"Let V1 = CEO; V3 = director; X = manager; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+1",3,det-counterfactual,diamondcut,firing_employee,commonsense,Y_{X=1} = 1 | V1=0,no,det,det-wiring
+9584,no,"Let V1 = CEO; V3 = director; X = manager; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X and V3
+Y = 0 = 1 and 0
+0",3,det-counterfactual,diamondcut,firing_employee,commonsense,Y_{X=1} = 1 | V1=1,yes,det,det-wiring
+9585,yes,"Let V1 = CEO; V3 = director; X = manager; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 0 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X and V3
+Y = 0 = 1 and 0
+1",3,det-counterfactual,diamondcut,firing_employee,commonsense,Y_{X=1} = 0 | V1=1,no,det,det-wiring
+10904,no,"Let X = having a sister; V3 = the private; V2 = the corporal; Y = prisoner.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.52
+P(Y=1 | X=0) = 0.36
+P(Y=1 | X=1) = 0.63
+0.52*0.63 - 0.48*0.36 = 0.50
+0.50 > 0",1,marginal,diamond,firing_squad,anticommonsense,P(Y),yes,enumerate,marginal-formula
+11513,yes,"Let X = my decision; V2 = penguin mood; Y = foot size.
+X->V2,X->Y,V2->Y
+E[Y | do(X = 1)] - E[Y | do(X = 0)]
+P(Y=1|X=1) - P(Y=1|X=0)
+P(Y=1 | X=0) = 0.67
+P(Y=1 | X=1) = 0.67
+0.67 - 0.67 = 0.01
+0.01 > 0",2,ate,mediation,penguin,anticommonsense,E[Y | do(X = 1)] - E[Y | do(X = 0)],no,adjust0,rounding
+11627,no,"Let X = having a brother; V3 = vaccination reaction; V2 = getting smallpox; Y = smallpox survival.
+X->V3,X->V2,V2->Y,V3->Y
+E[Y_{X=0, V2=1, V3=1} - Y_{X=0, V2=0, V3=0}]
+P(Y=1|X=1) - P(Y=1|X=0)
+P(Y=1 | X=0) = 0.49
+P(Y=1 | X=1) = 0.50
+0.50 - 0.49 = 0.00
+0.00 = 0",3,nie,diamond,vaccine_kills,anticommonsense,"E[Y_{X=0, V2=1, V3=1} - Y_{X=0, V2=0, V3=0}]",yes,paths+adjust0,rounding
+11630,no,"Let X = having a brother; V3 = vaccination reaction; V2 = getting smallpox; Y = smallpox survival.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.87
+P(Y=1, X=0=1) = 0.06
+P(Y=1, X=1=1) = 0.43
+0.43/0.87 - 0.06/0.13 = 0.00
+0.00 = 0",1,correlation,diamond,vaccine_kills,anticommonsense,P(Y | X),yes,joint,rounding
+11710,no,"Let X = having a brother; V3 = vaccination reaction; V2 = getting smallpox; Y = smallpox survival.
+X->V3,X->V2,V2->Y,V3->Y
+E[Y_{X = 1} - Y_{X = 0} | X = 1]
+P(Y=1|X=1) - P(Y=1|X=0)
+P(Y=1 | X=0) = 0.42
+P(Y=1 | X=1) = 0.41
+0.41 - 0.42 = -0.00
+0.00 = 0",3,ett,diamond,vaccine_kills,anticommonsense,E[Y_{X = 1} - Y_{X = 0} | X = 1],yes,adjust0,rounding
+11867,no,"Let X = having a sister; V2 = blood pressure; Y = heart condition.
+X->V2,X->Y,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.99
+P(Y=1, X=0=1) = 0.01
+P(Y=1, X=1=1) = 0.55
+0.55/0.99 - 0.01/0.01 = 0.06
+0.06 > 0",1,correlation,mediation,blood_pressure,anticommonsense,P(Y | X),yes,joint,rounding
+13122,yes,"Let Y = freckles; X = personality; V3 = relationship status.
+X->V3,Y->V3
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.43
+P(Y=1 | X=0) = 0.50
+P(Y=1 | X=1) = 0.50
+0.43*0.50 - 0.57*0.50 = 0.50
+0.50 > 0",1,marginal,collision,man_in_relationship,anticommonsense,P(Y),no,enumerate,marginal-formula
+13813,yes,"Let X = eating citrus; V2 = vitmain C; Y = curly hair.
+X->V2,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.99
+P(Y=1, X=0=1) = 0.00
+P(Y=1, X=1=1) = 0.14
+0.14/0.99 - 0.00/0.01 = -0.19
+-0.19 < 0",1,correlation,chain,orange_scurvy,anticommonsense,P(Y | X),no,joint,rounding
+14201,no,"Let V1 = kidney stone size; X = treatment; Y = lip thickness.
+V1->X,V1->Y,X->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.46
+P(Y=1 | X=0) = 0.60
+P(Y=1 | X=1) = 0.39
+0.46*0.39 - 0.54*0.60 = 0.50
+0.50 > 0",1,marginal,confounding,simpson_kidneystone,anticommonsense,P(Y),yes,enumerate,marginal-formula
+14202,yes,"Let V1 = kidney stone size; X = treatment; Y = lip thickness.
+V1->X,V1->Y,X->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.46
+P(Y=1 | X=0) = 0.60
+P(Y=1 | X=1) = 0.39
+0.46*0.39 - 0.54*0.60 = 0.50
+0.50 > 0",1,marginal,confounding,simpson_kidneystone,anticommonsense,P(Y),no,enumerate,marginal-formula
+14610,yes,"Let V1 = gender; X = smoking; V3 = tar deposit; Y = peanut allergy.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.72
+P(Y=1 | X=0) = 0.40
+P(Y=1 | X=1) = 0.53
+0.72*0.53 - 0.28*0.40 = 0.50
+0.50 > 0",1,marginal,frontdoor,smoking_frontdoor,anticommonsense,P(Y),no,enumerate,marginal-formula
+14635,yes,"Let V1 = gender; X = smoking; V3 = tar deposit; Y = peanut allergy.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.48
+P(Y=1 | X=0) = 0.50
+P(Y=1 | X=1) = 0.51
+0.48*0.51 - 0.52*0.50 = 0.50
+0.50 > 0",1,marginal,frontdoor,smoking_frontdoor,anticommonsense,P(Y),no,enumerate,marginal-formula
+15752,yes,"Let X = season; V3 = sprinkler; V2 = weather; Y = rainfall.
+X->V3,X->V2,V2->Y,V3->Y
+E[Y_{X = 1} - Y_{X = 0} | X = 1]
+P(Y=1|X=1) - P(Y=1|X=0)
+P(Y=1 | X=0) = 0.51
+P(Y=1 | X=1) = 0.51
+0.51 - 0.51 = 0.01
+0.01 > 0",3,ett,diamond,floor_wet,anticommonsense,E[Y_{X = 1} - Y_{X = 0} | X = 1],no,adjust0,rounding
+15762,no,"Let X = season; V3 = sprinkler; V2 = weather; Y = rainfall.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.90
+P(Y=1, X=0=1) = 0.06
+P(Y=1, X=1=1) = 0.53
+0.53/0.90 - 0.06/0.10 = 0.01
+0.01 > 0",1,correlation,diamond,floor_wet,anticommonsense,P(Y | X),yes,joint,rounding
+15810,yes,"Let X = season; V3 = sprinkler; V2 = weather; Y = rainfall.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.99
+P(Y=1, X=0=1) = 0.01
+P(Y=1, X=1=1) = 0.57
+0.57/0.99 - 0.01/0.01 = 0.11
+0.11 > 0",1,correlation,diamond,floor_wet,anticommonsense,P(Y | X),no,joint,rounding
+16385,yes,"Let X = vaccination status; V3 = vaccination reaction; V2 = getting smallpox; Y = black hair.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.06
+P(Y=1, X=0=1) = 0.33
+P(Y=1, X=1=1) = 0.02
+0.02/0.06 - 0.33/0.94 = 0.05
+0.05 > 0",1,correlation,diamond,vaccine_kills,anticommonsense,P(Y | X),no,joint,rounding
+16394,no,"Let X = vaccination status; V3 = vaccination reaction; V2 = getting smallpox; Y = black hair.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.09
+P(Y=1, X=0=1) = 0.45
+P(Y=1, X=1=1) = 0.04
+0.04/0.09 - 0.45/0.91 = -0.00
+0.00 = 0",1,correlation,diamond,vaccine_kills,anticommonsense,P(Y | X),yes,joint,rounding
+16424,no,"Let X = vaccination status; V3 = vaccination reaction; V2 = getting smallpox; Y = black hair.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.07
+P(Y=1, X=0=1) = 0.52
+P(Y=1, X=1=1) = 0.04
+0.04/0.07 - 0.52/0.93 = -0.00
+0.00 = 0",1,correlation,diamond,vaccine_kills,anticommonsense,P(Y | X),yes,joint,rounding
+17186,no,"Let X = encouragement level; V2 = studying habit; Y = brown eyes.
+X->V2,X->Y,V2->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.85
+P(Y=1 | X=0) = 0.69
+P(Y=1 | X=1) = 0.47
+0.85*0.47 - 0.15*0.69 = 0.50
+0.50 > 0",1,marginal,mediation,encouagement_program,anticommonsense,P(Y),yes,enumerate,marginal-formula
+17337,yes,"Let X = gender; V2 = department competitiveness; Y = lactose intolerance.
+X->V2,X->Y,V2->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.13
+P(Y=1 | X=0) = 0.51
+P(Y=1 | X=1) = 0.45
+0.13*0.45 - 0.87*0.51 = 0.50
+0.50 > 0",1,marginal,mediation,gender_admission,anticommonsense,P(Y),no,enumerate,marginal-formula
+17782,yes,"Let V2 = skill; X = liking spicy food; V3 = occupation; Y = salary.
+X->V3,V2->V3,X->Y,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.02
+P(Y=1, X=0=1) = 0.45
+P(Y=1, X=1=1) = 0.01
+0.01/0.02 - 0.45/0.98 = -0.11
+-0.11 < 0",1,correlation,arrowhead,gender_pay,anticommonsense,P(Y | X),no,joint,rounding
+19428,yes,"Let V1 = gender; X = smoking; V3 = tar deposit; Y = freckles.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.75
+P(Y=1 | X=0) = 0.26
+P(Y=1 | X=1) = 0.58
+0.75*0.58 - 0.25*0.26 = 0.51
+0.51 > 0",1,marginal,frontdoor,smoking_frontdoor,anticommonsense,P(Y),no,enumerate,marginal-formula
+19963,no,"Let V1 = CEO; V3 = director; X = having visited England; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+0",3,det-counterfactual,diamondcut,firing_employee,anticommonsense,Y_{X=0} = 0 | V1=0,yes,det,det-wiring
+19966,no,"Let V1 = CEO; V3 = director; X = having visited England; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 1 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X or V3
+Y = 0 = 0 or 0
+0",3,det-counterfactual,diamondcut,firing_employee,anticommonsense,Y_{X=0} = 1 | V1=1,yes,det,det-wiring
+19967,yes,"Let V1 = CEO; V3 = director; X = having visited England; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X or V3
+Y = 0 = 0 or 0
+1",3,det-counterfactual,diamondcut,firing_employee,anticommonsense,Y_{X=0} = 0 | V1=1,no,det,det-wiring
+19972,yes,"Let V1 = CEO; V3 = director; X = having visited England; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+1",3,det-counterfactual,diamondcut,firing_employee,anticommonsense,Y_{X=1} = 1 | V1=0,no,det,det-wiring
+19973,no,"Let V1 = CEO; V3 = director; X = having visited England; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+0",3,det-counterfactual,diamondcut,firing_employee,anticommonsense,Y_{X=1} = 0 | V1=0,yes,det,det-wiring
+19976,no,"Let V1 = CEO; V3 = director; X = having visited England; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X and V3
+Y = 0 = 1 and 0
+0",3,det-counterfactual,diamondcut,firing_employee,anticommonsense,Y_{X=1} = 1 | V1=1,yes,det,det-wiring
+19977,yes,"Let V1 = CEO; V3 = director; X = having visited England; Y = employee.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 0 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X and V3
+Y = 0 = 1 and 0
+1",3,det-counterfactual,diamondcut,firing_employee,anticommonsense,Y_{X=1} = 0 | V1=1,no,det,det-wiring
+20876,yes,"Let V1 = zuph; X = rixq; Y = xevu.
+V1->X,V1->Y,X->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.35
+P(Y=1 | X=0) = 0.60
+P(Y=1 | X=1) = 0.29
+0.35*0.29 - 0.65*0.60 = 0.51
+0.51 > 0",1,marginal,confounding,nonsense0,nonsense,P(Y),no,enumerate,marginal-formula
+20883,no,"Let V1 = zuph; X = rixq; Y = xevu.
+V1->X,V1->Y,X->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.45
+P(Y=1 | X=0) = 0.50
+P(Y=1 | X=1) = 0.49
+0.45*0.49 - 0.55*0.50 = 0.52
+0.52 > 0",1,marginal,confounding,nonsense0,nonsense,P(Y),yes,enumerate,marginal-formula
+21002,yes,"Let V1 = swoy; X = rixq; V3 = zuph; Y = xevu.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.65
+P(Y=1 | X=0) = 0.49
+P(Y=1 | X=1) = 0.48
+0.65*0.48 - 0.35*0.49 = 0.50
+0.50 > 0",1,marginal,frontdoor,nonsense0,nonsense,P(Y),no,enumerate,marginal-formula
+21505,yes,"Let V2 = muvy; X = kwox; V3 = swoq; Y = kwoz.
+X->V3,V2->V3,X->Y,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.89
+P(Y=1, X=0=1) = 0.07
+P(Y=1, X=1=1) = 0.59
+0.59/0.89 - 0.07/0.11 = -0.02
+-0.02 < 0",1,correlation,arrowhead,nonsense1,nonsense,P(Y | X),no,joint,rounding
+21795,no,"Let V1 = tijv; X = xevo; Y = gyzp.
+V1->X,V1->Y,X->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.14
+P(Y=1, X=0=1) = 0.11
+P(Y=1, X=1=1) = 0.02
+0.02/0.14 - 0.11/0.86 = -0.02
+-0.02 < 0",1,correlation,confounding,nonsense2,nonsense,P(Y | X),yes,joint,rounding
+21864,no,"Let V1 = tijw; X = xevo; V3 = tijv; Y = gyzp.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y | do(X = 1)] - E[Y | do(X = 0)]
+\sum_{V3 = v} [P(V3 = v|X = 1) - P(V3 = v|X = 0)] * [\sum_{X = h} P(Y = 1|X = h,V3 = v)*P(X = h)]
+P(V3=1 | X=0) = 0.29
+P(V3=1 | X=1) = 0.30
+P(Y=1 | X=0, V3=0) = 0.40
+P(Y=1 | X=0, V3=1) = 0.50
+P(Y=1 | X=1, V3=0) = 0.24
+P(Y=1 | X=1, V3=1) = 0.55
+P(X=1) = 0.50
+(0.30 - 0.29)* (0.55 * 0.50) + (0.70 - 0.71) * (0.50 * 0.50) = 0.00
+0.00 = 0",2,ate,frontdoor,nonsense2,nonsense,E[Y | do(X = 1)] - E[Y | do(X = 0)],yes,frontdoor,rounding
+21877,no,"Let V1 = tijw; X = xevo; V3 = tijv; Y = gyzp.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]
+\sum_{V3 = v} [P(V3 = v|X = 1) - P(V3 = v|X = 0)] * [\sum_{X = h} P(Y = 1|X = h,V3 = v)*P(X = h)]
+P(V3=1 | X=0) = 0.53
+P(V3=1 | X=1) = 0.52
+P(Y=1 | X=0, V3=0) = 0.54
+P(Y=1 | X=0, V3=1) = 0.61
+P(Y=1 | X=1, V3=0) = 0.55
+P(Y=1 | X=1, V3=1) = 0.61
+P(X=1) = 0.54
+0.52 - 0.53 * (0.61 * 0.54 + 0.61 * 0.46)= -0.00
+0.00 = 0",3,nie,frontdoor,nonsense2,nonsense,"E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]",yes,paths+frontdoor,rounding
+21879,no,"Let V1 = tijw; X = xevo; V3 = tijv; Y = gyzp.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.54
+P(Y=1, X=0=1) = 0.27
+P(Y=1, X=1=1) = 0.31
+0.31/0.54 - 0.27/0.46 = -0.00
+0.00 = 0",1,correlation,frontdoor,nonsense2,nonsense,P(Y | X),yes,joint,rounding
+22284,no,"Let V1 = cwoi; X = yomx; V3 = gwet; Y = xevu.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]
+\sum_{V3 = v} [P(V3 = v|X = 1) - P(V3 = v|X = 0)] * [\sum_{X = h} P(Y = 1|X = h,V3 = v)*P(X = h)]
+P(V3=1 | X=0) = 0.47
+P(V3=1 | X=1) = 0.21
+P(Y=1 | X=0, V3=0) = 0.77
+P(Y=1 | X=0, V3=1) = 0.75
+P(Y=1 | X=1, V3=0) = 0.76
+P(Y=1 | X=1, V3=1) = 0.75
+P(X=1) = 0.18
+0.21 - 0.47 * (0.75 * 0.18 + 0.75 * 0.82)= 0.00
+0.00 = 0",3,nie,frontdoor,nonsense3,nonsense,"E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]",yes,paths+frontdoor,rounding
+22290,no,"Let V1 = cwoi; X = yomx; V3 = gwet; Y = xevu.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.64
+P(Y=1 | X=0) = 0.76
+P(Y=1 | X=1) = 0.54
+0.64*0.54 - 0.36*0.76 = 0.49
+0.49 > 0",1,marginal,frontdoor,nonsense3,nonsense,P(Y),yes,enumerate,marginal-formula
+22318,no,"Let V1 = cwoi; X = yomx; V3 = gwet; Y = xevu.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.72
+P(Y=1, X=0=1) = 0.11
+P(Y=1, X=1=1) = 0.28
+0.28/0.72 - 0.11/0.28 = 0.00
+0.00 = 0",1,correlation,frontdoor,nonsense3,nonsense,P(Y | X),yes,joint,rounding
+22675,no,"Let X = jyka; V2 = hwax; Y = lirg.
+X->V2,X->Y,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.99
+P(Y=1, X=0=1) = 0.01
+P(Y=1, X=1=1) = 0.61
+0.61/0.99 - 0.01/0.01 = 0.01
+0.01 > 0",1,correlation,mediation,nonsense4,nonsense,P(Y | X),yes,joint,rounding
+22740,no,"Let V1 = gyzp; X = jyka; V3 = hwax; Y = lirg.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.07
+P(Y=1, X=0=1) = 0.28
+P(Y=1, X=1=1) = 0.02
+0.02/0.07 - 0.28/0.93 = 0.02
+0.02 > 0",1,correlation,frontdoor,nonsense4,nonsense,P(Y | X),yes,joint,rounding
+22778,yes,"Let V1 = gyzp; X = jyka; V3 = hwax; Y = lirg.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.24
+P(Y=1, X=0=1) = 0.10
+P(Y=1, X=1=1) = 0.03
+0.03/0.24 - 0.10/0.76 = 0.01
+0.01 > 0",1,correlation,frontdoor,nonsense4,nonsense,P(Y | X),no,joint,rounding
+23001,yes,"Let V2 = hwax; X = jyka; Y = lirg.
+X->Y,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.12
+P(Y=1, X=0=1) = 0.56
+P(Y=1, X=1=1) = 0.08
+0.08/0.12 - 0.56/0.88 = -0.01
+-0.01 < 0",1,correlation,fork,nonsense4,nonsense,P(Y | X),no,joint,rounding
+23024,no,"Let X = jyka; V2 = yupt; Y = kwox.
+X->V2,V2->Y
+E[Y_{X=0, V2=1} - Y_{X=0, V2=0}]
+P(Y=1|X=1) - P(Y=1|X=0)
+P(Y=1 | X=0) = 0.77
+P(Y=1 | X=1) = 0.78
+0.78 - 0.77 = 0.00
+0.00 = 0",3,nie,chain,nonsense5,nonsense,"E[Y_{X=0, V2=1} - Y_{X=0, V2=0}]",yes,paths+adjust0,rounding
+23034,yes,"Let X = jyka; V2 = yupt; Y = kwox.
+X->V2,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.97
+P(Y=1, X=0=1) = 0.01
+P(Y=1, X=1=1) = 0.34
+0.34/0.97 - 0.01/0.03 = -0.09
+-0.09 < 0",1,correlation,chain,nonsense5,nonsense,P(Y | X),no,joint,rounding
+23062,no,"Let X = jyka; V2 = yupt; Y = kwox.
+X->V2,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.97
+P(Y=1, X=0=1) = 0.02
+P(Y=1, X=1=1) = 0.60
+0.60/0.97 - 0.02/0.03 = 0.03
+0.03 > 0",1,correlation,chain,nonsense5,nonsense,P(Y | X),yes,joint,rounding
+23218,no,"Let V1 = qwiu; X = jyka; V3 = yupt; Y = kwox.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]
+\sum_{V3 = v} [P(V3 = v|X = 1) - P(V3 = v|X = 0)] * [\sum_{X = h} P(Y = 1|X = h,V3 = v)*P(X = h)]
+P(V3=1 | X=0) = 0.49
+P(V3=1 | X=1) = 0.50
+P(Y=1 | X=0, V3=0) = 0.71
+P(Y=1 | X=0, V3=1) = 0.84
+P(Y=1 | X=1, V3=0) = 0.73
+P(Y=1 | X=1, V3=1) = 0.82
+P(X=1) = 0.75
+0.50 - 0.49 * (0.82 * 0.75 + 0.84 * 0.25)= 0.00
+0.00 = 0",3,nie,frontdoor,nonsense5,nonsense,"E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]",yes,paths+frontdoor,rounding
+23329,no,"Let V2 = qwiu; X = jyka; V3 = yupt; Y = kwox.
+X->V3,V2->V3,X->Y,V2->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.65
+P(Y=1 | X=0) = 0.66
+P(Y=1 | X=1) = 0.36
+0.65*0.36 - 0.35*0.66 = 0.55
+0.55 > 0",1,marginal,arrowhead,nonsense5,nonsense,P(Y),yes,enumerate,marginal-formula
+23576,no,"Let X = yupt; V2 = zupj; Y = muvq.
+X->V2,X->Y,V2->Y
+E[Y_{X=0, V2=1} - Y_{X=0, V2=0}]
+\sum_{V2 = v} P(Y=1|X =0,V2 = v)*[P(V2 = v | X = 1) − P(V2 = v | X = 0)]
+P(Y=1 | X=0, V2=0) = 0.40
+P(Y=1 | X=0, V2=1) = 0.32
+P(Y=1 | X=1, V2=0) = 0.73
+P(Y=1 | X=1, V2=1) = 0.57
+P(V2=1 | X=0) = 0.87
+P(V2=1 | X=1) = 0.89
+0.89 * (0.32 - 0.40)+ 0.87 * (0.57 - 0.73)= -0.00
+0.00 = 0",3,nie,mediation,nonsense6,nonsense,"E[Y_{X=0, V2=1} - Y_{X=0, V2=0}]",yes,mediation,rounding
+23669,no,"Let V1 = xyfo; X = yupt; V3 = zupj; Y = muvq.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y_{X = 1} - Y_{X = 0} | X = 1]
+\sum_{V3=v}P(Y=1|X=1,V3=v)*[P(V3=v|X=1)-P(V3=v|X=0)]
+P(Y=1 | X=0, V3=0) = 0.78
+P(Y=1 | X=0, V3=1) = 0.81
+P(Y=1 | X=1, V3=0) = 0.77
+P(Y=1 | X=1, V3=1) = 0.75
+P(V3=1 | X=0) = 0.83
+P(V3=1 | X=1) = 0.70
+0.75 * (0.70 - 0.83) + 0.81 * (0.30 - 0.17) = 0.00
+0.00 = 0",3,ett,frontdoor,nonsense6,nonsense,E[Y_{X = 1} - Y_{X = 0} | X = 1],yes,frontdoor,rounding
+23996,yes,"Let X = zuph; V2 = wibl; Y = uvzi.
+X->V2,X->Y,V2->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.52
+P(Y=1 | X=0) = 0.23
+P(Y=1 | X=1) = 0.58
+0.52*0.58 - 0.48*0.23 = 0.50
+0.50 > 0",1,marginal,mediation,nonsense7,nonsense,P(Y),no,enumerate,marginal-formula
+24386,yes,"Let Y = rukz; X = pexu; V3 = hwax.
+X->V3,Y->V3
+P(Y = 1 | X = 1, V3 = 1] - P(Y = 1 | V3 = 1)
+P(Y=1 | X=1, V3=1) - (P(X=1) * P(Y=1 | X=1, V3=1) + P(X=0) * P(Y=1 | X=0, V3=1))
+P(X=1) = 0.70
+P(Y=1 | X=0, V3=0) = 0.26
+P(Y=1 | X=0, V3=1) = 0.10
+P(Y=1 | X=1, V3=0) = 0.18
+P(Y=1 | X=1, V3=1) = 0.10
+0.10 - (0.70*0.10 + 0.30*0.10) = -0.00
+0.00 = 0",1,exp_away,collision,nonsense8,nonsense,"P(Y = 1 | X = 1, V3 = 1] - P(Y = 1 | V3 = 1)",no,convexity+kernel,rounding
+24403,no,"Let V1 = hwax; X = pexu; Y = rukz.
+V1->X,V1->Y,X->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.27
+P(Y=1, X=0=1) = 0.70
+P(Y=1, X=1=1) = 0.26
+0.26/0.27 - 0.70/0.73 = -0.02
+-0.02 < 0",1,correlation,confounding,nonsense8,nonsense,P(Y | X),yes,joint,rounding
+24473,no,"Let X = pexu; V2 = hwax; Y = rukz.
+X->V2,X->Y,V2->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.55
+P(Y=1 | X=0) = 0.22
+P(Y=1 | X=1) = 0.73
+0.55*0.73 - 0.45*0.22 = 0.45
+0.45 > 0",1,marginal,mediation,nonsense8,nonsense,P(Y),yes,enumerate,marginal-formula
+24699,yes,"Let V1 = hwax; V3 = kraz; X = pexu; Y = rukz.
+V1->V3,V1->X,X->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.85
+P(Y=1, X=0=1) = 0.02
+P(Y=1, X=1=1) = 0.13
+0.13/0.85 - 0.02/0.15 = -0.01
+-0.01 < 0",1,correlation,diamondcut,nonsense8,nonsense,P(Y | X),no,joint,rounding
+24783,no,"Let X = zuph; V2 = jyka; Y = glimx.
+X->V2,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.85
+P(Y=1, X=0=1) = 0.04
+P(Y=1, X=1=1) = 0.21
+0.21/0.85 - 0.04/0.15 = -0.00
+0.00 = 0",1,correlation,chain,nonsense9,nonsense,P(Y | X),yes,joint,rounding
+24852,yes,"Let V1 = jyka; X = zuph; Y = glimx.
+V1->X,V1->Y,X->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.51
+P(Y=1 | X=0) = 0.87
+P(Y=1 | X=1) = 0.16
+0.51*0.16 - 0.49*0.87 = 0.50
+0.50 > 0",1,marginal,confounding,nonsense9,nonsense,P(Y),no,enumerate,marginal-formula
+25363,no,"Let V1 = swoy; X = rixq; V3 = zuph; Y = xevu.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y_{X = 1} - Y_{X = 0} | X = 1]
+\sum_{V3=v}P(Y=1|X=1,V3=v)*[P(V3=v|X=1)-P(V3=v|X=0)]
+P(Y=1 | X=0, V3=0) = 0.56
+P(Y=1 | X=0, V3=1) = 0.80
+P(Y=1 | X=1, V3=0) = 0.81
+P(Y=1 | X=1, V3=1) = 0.70
+P(V3=1 | X=0) = 0.27
+P(V3=1 | X=1) = 0.23
+0.70 * (0.23 - 0.27) + 0.80 * (0.77 - 0.73) = 0.00
+0.00 = 0",3,ett,frontdoor,nonsense0,nonsense,E[Y_{X = 1} - Y_{X = 0} | X = 1],yes,frontdoor,rounding
+25570,yes,"Let V2 = zuph; X = rixq; Y = xevu.
+X->Y,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.02
+P(Y=1, X=0=1) = 0.76
+P(Y=1, X=1=1) = 0.02
+0.02/0.02 - 0.76/0.98 = -0.14
+-0.14 < 0",1,correlation,fork,nonsense0,nonsense,P(Y | X),no,joint,rounding
+25982,no,"Let V1 = swoq; V3 = muvy; X = kwox; Y = kwoz.
+V1->V3,V1->X,X->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.77
+P(Y=1 | X=0) = 0.75
+P(Y=1 | X=1) = 0.34
+0.77*0.34 - 0.23*0.75 = 0.51
+0.51 > 0",1,marginal,diamondcut,nonsense1,nonsense,P(Y),yes,enumerate,marginal-formula
+26317,yes,"Let V2 = tijw; X = xevo; V3 = tijv; Y = gyzp.
+X->V3,V2->V3,X->Y,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.91
+P(Y=1, X=0=1) = 0.03
+P(Y=1, X=1=1) = 0.33
+0.33/0.91 - 0.03/0.09 = -0.01
+-0.01 < 0",1,correlation,arrowhead,nonsense2,nonsense,P(Y | X),no,joint,rounding
+26735,no,"Let V2 = gwet; V1 = cwoi; X = yomx; Y = xevu.
+V1->X,V2->X,V1->Y,X->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.53
+P(Y=1 | X=0) = 0.17
+P(Y=1 | X=1) = 0.79
+0.53*0.79 - 0.47*0.17 = 0.50
+0.50 > 0",1,marginal,IV,nonsense3,nonsense,P(Y),yes,enumerate,marginal-formula
+26809,yes,"Let X = yomx; V3 = cwoi; V2 = gwet; Y = xevu.
+X->V3,X->V2,V2->Y,V3->Y
+E[Y | do(X = 1)] - E[Y | do(X = 0)]
+P(Y=1|X=1) - P(Y=1|X=0)
+P(Y=1 | X=0) = 0.45
+P(Y=1 | X=1) = 0.45
+0.45 - 0.45 = 0.01
+0.01 > 0",2,ate,diamond,nonsense3,nonsense,E[Y | do(X = 1)] - E[Y | do(X = 0)],no,adjust0,rounding
+27259,no,"Let X = jyka; V3 = gyzp; V2 = hwax; Y = lirg.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.97
+P(Y=1, X=0=1) = 0.01
+P(Y=1, X=1=1) = 0.39
+0.39/0.97 - 0.01/0.03 = -0.10
+-0.10 < 0",1,correlation,diamond,nonsense4,nonsense,P(Y | X),yes,joint,rounding
+27359,yes,"Let X = jyka; V2 = yupt; Y = kwox.
+X->V2,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.72
+P(Y=1, X=0=1) = 0.02
+P(Y=1, X=1=1) = 0.05
+0.05/0.72 - 0.02/0.28 = 0.01
+0.01 > 0",1,correlation,chain,nonsense5,nonsense,P(Y | X),no,joint,rounding
+27496,no,"Let X = jyka; V2 = yupt; Y = kwox.
+X->V2,X->Y,V2->Y
+E[Y_{X=0, V2=1} - Y_{X=0, V2=0}]
+\sum_{V2 = v} P(Y=1|X =0,V2 = v)*[P(V2 = v | X = 1) − P(V2 = v | X = 0)]
+P(Y=1 | X=0, V2=0) = 0.12
+P(Y=1 | X=0, V2=1) = 0.06
+P(Y=1 | X=1, V2=0) = 0.54
+P(Y=1 | X=1, V2=1) = 0.61
+P(V2=1 | X=0) = 0.30
+P(V2=1 | X=1) = 0.31
+0.31 * (0.06 - 0.12)+ 0.30 * (0.61 - 0.54)= -0.00
+0.00 = 0",3,nie,mediation,nonsense5,nonsense,"E[Y_{X=0, V2=1} - Y_{X=0, V2=0}]",yes,mediation,rounding
+27535,no,"Let V1 = qwiu; X = jyka; V3 = yupt; Y = kwox.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y_{X = 1} - Y_{X = 0} | X = 1]
+\sum_{V3=v}P(Y=1|X=1,V3=v)*[P(V3=v|X=1)-P(V3=v|X=0)]
+P(Y=1 | X=0, V3=0) = 0.77
+P(Y=1 | X=0, V3=1) = 0.78
+P(Y=1 | X=1, V3=0) = 0.59
+P(Y=1 | X=1, V3=1) = 0.61
+P(V3=1 | X=0) = 0.87
+P(V3=1 | X=1) = 0.85
+0.61 * (0.85 - 0.87) + 0.78 * (0.15 - 0.13) = -0.00
+0.00 = 0",3,ett,frontdoor,nonsense5,nonsense,E[Y_{X = 1} - Y_{X = 0} | X = 1],yes,frontdoor,rounding
+27536,no,"Let V1 = qwiu; X = jyka; V3 = yupt; Y = kwox.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]
+\sum_{V3 = v} [P(V3 = v|X = 1) - P(V3 = v|X = 0)] * [\sum_{X = h} P(Y = 1|X = h,V3 = v)*P(X = h)]
+P(V3=1 | X=0) = 0.87
+P(V3=1 | X=1) = 0.85
+P(Y=1 | X=0, V3=0) = 0.77
+P(Y=1 | X=0, V3=1) = 0.78
+P(Y=1 | X=1, V3=0) = 0.59
+P(Y=1 | X=1, V3=1) = 0.61
+P(X=1) = 0.82
+0.85 - 0.87 * (0.61 * 0.82 + 0.78 * 0.18)= -0.00
+0.00 = 0",3,nie,frontdoor,nonsense5,nonsense,"E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]",yes,paths+frontdoor,rounding
+27554,no,"Let V1 = qwiu; X = jyka; V3 = yupt; Y = kwox.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]
+\sum_{V3 = v} [P(V3 = v|X = 1) - P(V3 = v|X = 0)] * [\sum_{X = h} P(Y = 1|X = h,V3 = v)*P(X = h)]
+P(V3=1 | X=0) = 0.22
+P(V3=1 | X=1) = 0.17
+P(Y=1 | X=0, V3=0) = 0.44
+P(Y=1 | X=0, V3=1) = 0.44
+P(Y=1 | X=1, V3=0) = 0.34
+P(Y=1 | X=1, V3=1) = 0.46
+P(X=1) = 0.49
+0.17 - 0.22 * (0.46 * 0.49 + 0.44 * 0.51)= -0.00
+0.00 = 0",3,nie,frontdoor,nonsense5,nonsense,"E[Y_{X=0, V3=1} - Y_{X=0, V3=0}]",yes,paths+frontdoor,rounding
+27645,no,"Let V2 = qwiu; X = jyka; V3 = yupt; Y = kwox.
+X->V3,V2->V3,X->Y,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.90
+P(Y=1, X=0=1) = 0.10
+P(Y=1, X=1=1) = 0.87
+0.87/0.90 - 0.10/0.10 = 0.03
+0.03 > 0",1,correlation,arrowhead,nonsense5,nonsense,P(Y | X),yes,joint,rounding
+27653,yes,"Let X = jyka; V3 = qwiu; V2 = yupt; Y = kwox.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.88
+P(Y=1, X=0=1) = 0.09
+P(Y=1, X=1=1) = 0.67
+0.67/0.88 - 0.09/0.12 = -0.01
+-0.01 < 0",1,correlation,diamond,nonsense5,nonsense,P(Y | X),no,joint,rounding
+28441,no,"Let V1 = vubr; X = zuph; V3 = wibl; Y = uvzi.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.03
+P(Y=1 | X=0) = 0.50
+P(Y=1 | X=1) = 0.55
+0.03*0.55 - 0.97*0.50 = 0.50
+0.50 > 0",1,marginal,frontdoor,nonsense7,nonsense,P(Y),yes,enumerate,marginal-formula
+28451,no,"Let V1 = vubr; X = zuph; V3 = wibl; Y = uvzi.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.02
+P(Y=1, X=0=1) = 0.71
+P(Y=1, X=1=1) = 0.02
+0.02/0.02 - 0.71/0.98 = -0.09
+-0.09 < 0",1,correlation,frontdoor,nonsense7,nonsense,P(Y | X),yes,joint,rounding
+28452,yes,"Let V1 = vubr; X = zuph; V3 = wibl; Y = uvzi.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.02
+P(Y=1, X=0=1) = 0.71
+P(Y=1, X=1=1) = 0.02
+0.02/0.02 - 0.71/0.98 = -0.09
+-0.09 < 0",1,correlation,frontdoor,nonsense7,nonsense,P(Y | X),no,joint,rounding
+28626,no,"Let V1 = wibl; V3 = vubr; X = zuph; Y = uvzi.
+V1->V3,V1->X,X->Y,V3->Y
+P(Y)
+P(Y | X=1)*P(X=1) + P(Y | X=0)*P(X=0)
+P(X=1) = 0.70
+P(Y=1 | X=0) = 0.58
+P(Y=1 | X=1) = 0.40
+0.70*0.40 - 0.30*0.58 = 0.56
+0.56 > 0",1,marginal,diamondcut,nonsense7,nonsense,P(Y),yes,enumerate,marginal-formula
+28887,no,"Let V1 = kraz; X = pexu; V3 = hwax; Y = rukz.
+V1->X,X->V3,V1->Y,V3->Y
+E[Y_{X = 1} - Y_{X = 0} | X = 1]
+\sum_{V3=v}P(Y=1|X=1,V3=v)*[P(V3=v|X=1)-P(V3=v|X=0)]
+P(Y=1 | X=0, V3=0) = 0.89
+P(Y=1 | X=0, V3=1) = 0.77
+P(Y=1 | X=1, V3=0) = 0.92
+P(Y=1 | X=1, V3=1) = 0.79
+P(V3=1 | X=0) = 0.93
+P(V3=1 | X=1) = 0.96
+0.79 * (0.96 - 0.93) + 0.77 * (0.04 - 0.07) = -0.00
+0.00 = 0",3,ett,frontdoor,nonsense8,nonsense,E[Y_{X = 1} - Y_{X = 0} | X = 1],yes,frontdoor,rounding
+28973,yes,"Let V2 = kraz; X = pexu; V3 = hwax; Y = rukz.
+X->V3,V2->V3,X->Y,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.99
+P(Y=1, X=0=1) = 0.00
+P(Y=1, X=1=1) = 0.26
+0.26/0.99 - 0.00/0.01 = -0.22
+-0.22 < 0",1,correlation,arrowhead,nonsense8,nonsense,P(Y | X),no,joint,rounding
+29051,no,"Let X = pexu; V3 = kraz; V2 = hwax; Y = rukz.
+X->V3,X->V2,V2->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.40
+P(Y=1, X=0=1) = 0.29
+P(Y=1, X=1=1) = 0.19
+0.19/0.40 - 0.29/0.60 = -0.00
+0.00 = 0",1,correlation,diamond,nonsense8,nonsense,P(Y | X),yes,joint,rounding
+29062,no,"Let V1 = hwax; V3 = kraz; X = pexu; Y = rukz.
+V1->V3,V1->X,X->Y,V3->Y
+E[Y | do(X = 1)] - E[Y | do(X = 0)]
+\sum_{V1=v} P(V1=v)*[P(Y=1|V1=v,X=1) - P(Y=1|V1=v, X=0)]
+P(Y=1 | V1=0, X=0) = 0.73
+P(Y=1 | V1=0, X=1) = 0.75
+P(Y=1 | V1=1, X=0) = 0.69
+P(Y=1 | V1=1, X=1) = 0.66
+P(V1=1) = 0.44
+0.56 * (0.75 - 0.73) 0.44 * (0.66 - 0.69) = -0.00
+0.00 = 0",2,ate,diamondcut,nonsense8,nonsense,E[Y | do(X = 1)] - E[Y | do(X = 0)],yes,adjust,rounding
+29303,no,"Let X = zuph; V2 = jyka; Y = glimx.
+X->V2,X->Y,V2->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.99
+P(Y=1, X=0=1) = 0.00
+P(Y=1, X=1=1) = 0.41
+0.41/0.99 - 0.00/0.01 = -0.18
+-0.18 < 0",1,correlation,mediation,nonsense9,nonsense,P(Y | X),yes,joint,rounding
+29349,yes,"Let V1 = zory; X = zuph; V3 = jyka; Y = glimx.
+V1->X,X->V3,V1->Y,V3->Y
+P(Y | X)
+P(X = 1, Y = 1)/P(X = 1) - P(X = 0, Y = 1)/P(X = 0)
+P(X=1=1) = 0.11
+P(Y=1, X=0=1) = 0.33
+P(Y=1, X=1=1) = 0.04
+0.04/0.11 - 0.33/0.89 = 0.03
+0.03 > 0",1,correlation,frontdoor,nonsense9,nonsense,P(Y | X),no,joint,rounding
+29702,yes,"Let V1 = zuph; V3 = swoy; X = rixq; Y = xevu.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+1",3,det-counterfactual,diamondcut,nonsense0,nonsense,Y_{X=1} = 1 | V1=0,no,det,det-wiring
+29703,no,"Let V1 = zuph; V3 = swoy; X = rixq; Y = xevu.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+0",3,det-counterfactual,diamondcut,nonsense0,nonsense,Y_{X=1} = 0 | V1=0,yes,det,det-wiring
+29847,no,"Let V1 = swoq; V3 = muvy; X = kwox; Y = kwoz.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+0",3,det-counterfactual,diamondcut,nonsense1,nonsense,Y_{X=1} = 0 | V1=0,yes,det,det-wiring
+29848,no,"Let V1 = swoq; V3 = muvy; X = kwox; Y = kwoz.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X and V3
+Y = 0 = 1 and 0
+0",3,det-counterfactual,diamondcut,nonsense1,nonsense,Y_{X=1} = 1 | V1=1,yes,det,det-wiring
+29853,yes,"Let V1 = swoq; V3 = muvy; X = kwox; Y = kwoz.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X or V3
+Y = 0 = 0 or 0
+1",3,det-counterfactual,diamondcut,nonsense1,nonsense,Y_{X=0} = 0 | V1=1,no,det,det-wiring
+29984,yes,"Let V1 = tijv; V3 = tijw; X = xevo; Y = gyzp.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 1 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+1",3,det-counterfactual,diamondcut,nonsense2,nonsense,Y_{X=0} = 1 | V1=0,no,det,det-wiring
+29985,no,"Let V1 = tijv; V3 = tijw; X = xevo; Y = gyzp.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+0",3,det-counterfactual,diamondcut,nonsense2,nonsense,Y_{X=0} = 0 | V1=0,yes,det,det-wiring
+29996,no,"Let V1 = tijv; V3 = tijw; X = xevo; Y = gyzp.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+0",3,det-counterfactual,diamondcut,nonsense2,nonsense,Y_{X=1} = 0 | V1=0,yes,det,det-wiring
+30132,yes,"Let V1 = gwet; V3 = cwoi; X = yomx; Y = xevu.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 1 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+1",3,det-counterfactual,diamondcut,nonsense3,nonsense,Y_{X=0} = 1 | V1=0,no,det,det-wiring
+30133,no,"Let V1 = gwet; V3 = cwoi; X = yomx; Y = xevu.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 1 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X or V3
+Y = 0 = 0 or 0
+0",3,det-counterfactual,diamondcut,nonsense3,nonsense,Y_{X=0} = 1 | V1=1,yes,det,det-wiring
+30275,no,"Let V1 = hwax; V3 = gyzp; X = jyka; Y = lirg.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X and V3
+Y = 0 = 1 and 0
+0",3,det-counterfactual,diamondcut,nonsense4,nonsense,Y_{X=1} = 1 | V1=1,yes,det,det-wiring
+30285,no,"Let V1 = hwax; V3 = gyzp; X = jyka; Y = lirg.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+0",3,det-counterfactual,diamondcut,nonsense4,nonsense,Y_{X=0} = 0 | V1=0,yes,det,det-wiring
+30416,yes,"Let V1 = yupt; V3 = qwiu; X = jyka; Y = kwox.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 1 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+1",3,det-counterfactual,diamondcut,nonsense5,nonsense,Y_{X=0} = 1 | V1=0,no,det,det-wiring
+30418,yes,"Let V1 = yupt; V3 = qwiu; X = jyka; Y = kwox.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X or V3
+Y = 0 = 0 or 0
+1",3,det-counterfactual,diamondcut,nonsense5,nonsense,Y_{X=0} = 0 | V1=1,no,det,det-wiring
+30426,no,"Let V1 = yupt; V3 = qwiu; X = jyka; Y = kwox.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+0",3,det-counterfactual,diamondcut,nonsense5,nonsense,Y_{X=1} = 0 | V1=0,yes,det,det-wiring
+30570,no,"Let V1 = zupj; V3 = xyfo; X = yupt; Y = muvq.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 1 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X or V3
+Y = 0 = 0 or 0
+0",3,det-counterfactual,diamondcut,nonsense6,nonsense,Y_{X=0} = 1 | V1=1,yes,det,det-wiring
+30574,no,"Let V1 = zupj; V3 = xyfo; X = yupt; Y = muvq.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+0",3,det-counterfactual,diamondcut,nonsense6,nonsense,Y_{X=1} = 0 | V1=0,yes,det,det-wiring
+30706,yes,"Let V1 = wibl; V3 = vubr; X = zuph; Y = uvzi.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+1",3,det-counterfactual,diamondcut,nonsense7,nonsense,Y_{X=1} = 1 | V1=0,no,det,det-wiring
+30851,yes,"Let V1 = hwax; V3 = kraz; X = pexu; Y = rukz.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 0 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X and V3
+Y = 0 = 1 and 0
+1",3,det-counterfactual,diamondcut,nonsense8,nonsense,Y_{X=1} = 0 | V1=1,no,det,det-wiring
+30852,no,"Let V1 = hwax; V3 = kraz; X = pexu; Y = rukz.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+0",3,det-counterfactual,diamondcut,nonsense8,nonsense,Y_{X=0} = 0 | V1=0,yes,det,det-wiring
+30993,yes,"Let V1 = jyka; V3 = zory; X = zuph; Y = glimx.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X and V3
+Y = 1 = 1 and 1
+1",3,det-counterfactual,diamondcut,nonsense9,nonsense,Y_{X=1} = 1 | V1=0,no,det,det-wiring
+30994,no,"Let V1 = jyka; V3 = zory; X = zuph; Y = glimx.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=1} = 1 | V1=1
+Solve for Y, given the evidence and the action
+V1 = 1
+X = V1
+V3 = not X
+Y = X and V3
+Y = 0 = 1 and 0
+0",3,det-counterfactual,diamondcut,nonsense9,nonsense,Y_{X=1} = 1 | V1=1,yes,det,det-wiring
+30998,no,"Let V1 = jyka; V3 = zory; X = zuph; Y = glimx.
+V1->V3,V1->X,X->Y,V3->Y
+Y_{X=0} = 0 | V1=0
+Solve for Y, given the evidence and the action
+V1 = 0
+X = V1
+V3 = not X
+Y = X or V3
+Y = 1 = 0 or 1
+0",3,det-counterfactual,diamondcut,nonsense9,nonsense,Y_{X=0} = 0 | V1=0,yes,det,det-wiring

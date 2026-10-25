@@ -1,0 +1,40 @@
+{
+ "detcf_flips": 37,
+ "detcf_equal_ref37": true,
+ "detcf_symdiff": [],
+ "full_v1.5_default": {
+  "rows": 10112,
+  "kept": 9796,
+  "excluded": 316
+ },
+ "test-anticommonsense-v1.5": {
+  "rows": 10392,
+  "kept": 9840,
+  "excluded": 552
+ },
+ "test-balanced-v1.5": {
+  "rows": 10112,
+  "kept": 9796,
+  "excluded": 316
+ },
+ "test-commonsense-v1.5": {
+  "rows": 10392,
+  "kept": 9840,
+  "excluded": 552
+ },
+ "test-easy-v1.5": {
+  "rows": 10560,
+  "kept": 10176,
+  "excluded": 384
+ },
+ "test-hard-v1.5": {
+  "rows": 10556,
+  "kept": 10172,
+  "excluded": 384
+ },
+ "test-noncommonsense-v1.5": {
+  "rows": 10240,
+  "kept": 9920,
+  "excluded": 320
+ }
+}
